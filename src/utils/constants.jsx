@@ -1,4 +1,4 @@
-const API_ROOT = "https://api.spacexdata.com/v3/launches";
+const API_ROOT = "https://api.spacexdata.com/v3/capsules";
 const API_KEY = "AIzaSyAM-sUnjZNJUkbzYEzPc0YeI51oeQD4GfM";
 
 export const API_SIGNUP = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../styles/styles.css";
+import { useAuth } from "../provider/AuthProvider";
 function Landing() {
   const [showContent, setShowContent] = useState(false);
 
@@ -12,8 +13,13 @@ function Landing() {
     return () => clearTimeout(timer);
   }, []);
 
+  const navigate = useNavigate();
+  const { user } = useAuth();
+  if (user) {
+    navigate("/home");
+  }
   return (
-    <div className="flex justify-center w-70 relative hideScroll ">
+    <div className="flex justify-center w-70 relative ">
       <img
         src="/images/capsule.svg"
         alt="capsule"

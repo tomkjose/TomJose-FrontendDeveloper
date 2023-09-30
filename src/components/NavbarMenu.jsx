@@ -42,12 +42,7 @@ export function NavbarMenu() {
             >
               {user}
             </Typography>
-            <Button
-              variant="gradient"
-              size="sm"
-              className="hover:bg-blue-700"
-              onClick={logout}
-            >
+            <Button variant="outlined" size="sm" onClick={logout}>
               Logout
             </Button>
           </div>
@@ -55,7 +50,7 @@ export function NavbarMenu() {
           <div className="hidden gap-2 lg:flex">
             <Link to="/signin">
               {" "}
-              <Button variant="text" size="sm" color="blue-gray">
+              <Button variant="outlined" size="sm" color="blue-gray">
                 Login
               </Button>
             </Link>
@@ -85,15 +80,26 @@ export function NavbarMenu() {
         </IconButton>
       </div>
       <Collapse open={openNav}>
-        <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
-          {" "}
-          <Button variant="outlined" size="sm" color="blue-gray" fullWidth>
-            <Link to="/signin"> Login </Link>
-          </Button>{" "}
-          <Button variant="gradient" size="sm" fullWidth>
-            <Link to="/signup"> Register </Link>
-          </Button>
-        </div>
+        {user ? (
+          <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
+            <Typography variant="h6" className="mr-4  py-1.5 lg:ml-2">
+              {user}
+            </Typography>
+            <Button variant="outlined" size="sm" onClick={logout}>
+              Logout
+            </Button>
+          </div>
+        ) : (
+          <div className="flex w-full flex-nowrap items-center gap-2 lg:hidden">
+            {" "}
+            <Button variant="outlined" size="sm" color="blue-gray" fullWidth>
+              <Link to="/signin"> Login </Link>
+            </Button>{" "}
+            <Button variant="gradient" size="sm" fullWidth>
+              <Link to="/signup"> Register </Link>
+            </Button>
+          </div>
+        )}
       </Collapse>
     </Navbar>
   );

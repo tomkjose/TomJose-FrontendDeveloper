@@ -5,6 +5,7 @@ import { fetchCapsule } from "../redux/action";
 import { Loading } from "../components/Loading";
 import { useAuth } from "../provider/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import Banner from "../components/Banner";
 function Home() {
   const { capsules, loading } = useSelector((state) => state);
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ function Home() {
   }
   return (
     <div>
+      <Banner />
       <CapsuleContainer capsules={capsules} />
     </div>
   );
