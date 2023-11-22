@@ -1,5 +1,5 @@
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { setLocalStorge } from "../utils/helpper";
 import { useAuth } from "../provider/AuthProvider";
@@ -12,9 +12,12 @@ export function LoginForm() {
   const { user, login } = useAuth();
   const navigate = useNavigate();
 
-  if (user) {
-    navigate("/home");
-  }
+  useEffect(() => {
+    if (user) {
+      navigate("/home");
+    }
+  }, [user, navigate]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -32,7 +35,7 @@ export function LoginForm() {
         navigate("/home");
       }
     } catch (error) {
-      console.log("error", error);
+      // console.log("error", error);
       navigate("/signin");
     }
   };

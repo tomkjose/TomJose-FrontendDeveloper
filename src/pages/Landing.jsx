@@ -13,11 +13,14 @@ function Landing() {
     return () => clearTimeout(timer);
   }, []);
 
-  const navigate = useNavigate();
   const { user } = useAuth();
-  if (user) {
-    navigate("/home");
-  }
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      navigate("/home");
+    }
+  }, [user, navigate]);
   return (
     <div className="flex justify-center w-70 relative ">
       <img

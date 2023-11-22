@@ -1,5 +1,5 @@
 import { Card, Input, Button, Typography } from "@material-tailwind/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { apiSignUp } from "../api";
 import { setLocalStorge } from "../utils/helpper";
@@ -14,9 +14,11 @@ export function RegistrationForm() {
   const navigate = useNavigate();
   const { user } = useAuth();
 
-  if (user) {
-    navigate("/home");
-  }
+  useEffect(() => {
+    if (user) {
+      navigate("/home");
+    }
+  }, [user, navigate]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,7 +42,7 @@ export function RegistrationForm() {
         navigate("/home");
       }
     } catch (error) {
-      console.log("error", error);
+      // console.log("error", error);
     }
   };
 

@@ -4,7 +4,6 @@ import { LoginForm } from "./LoginForm";
 import { CapsuleCard } from "./CapsuleCard";
 import CapsuleContainer from "./CapsuleContainer";
 import { Pagination } from "./Pagination";
-import { FilterComponent } from "./FilterComponent";
 import { Loading } from "./Loading";
 export {
   NavbarMenu,
@@ -13,6 +12,5 @@ export {
   CapsuleContainer,
   CapsuleCard,
   Pagination,
-  FilterComponent,
   Loading,
 };

@@ -8,10 +8,11 @@ import {
 } from "@material-tailwind/react";
 import React from "react";
 import { CapsulePopup } from "./CapsulePopup";
+import "../styles/styles.css";
 
 export function CapsuleCard({ capsule }) {
   return (
-    <Card className="  w-1/4 m-4 ">
+    <Card className=" w-1/3 m-4 container">
       <CardHeader
         color="white"
         className="relative  flex justify-center items-center "
@@ -19,9 +20,9 @@ export function CapsuleCard({ capsule }) {
         <img src="capsule.jpg" alt="capsule" />
       </CardHeader>
       <CardBody>
-        <div className="flex justify-between pb-4">
+        <div className="flex flex-warp justify-between pb-4">
           <Typography variant="h5" color="blue-gray" className="mb-2">
-            {capsule.missions[0]?.name}
+            {capsule?.missions[0]?.name || "Unknown"}
           </Typography>
           <Chip
             variant="ghost"
@@ -29,8 +30,8 @@ export function CapsuleCard({ capsule }) {
               capsule.status === "retired"
                 ? "red"
                 : capsule.status === "active"
-                ? "red"
-                : "grey"
+                ? "green"
+                : "gray"
             }
             size="sm"
             value={capsule.status}
@@ -42,7 +43,6 @@ export function CapsuleCard({ capsule }) {
         <Typography>{capsule.details}</Typography>
       </CardBody>
       <CardFooter className="pt-0">
-        {/* <Button onClick={handleOpen}>Read More</Button> */}
         <CapsulePopup capsule={capsule} />
       </CardFooter>
     </Card>

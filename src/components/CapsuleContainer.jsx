@@ -1,31 +1,32 @@
 import React, { useState } from "react";
-import { CapsuleCard, Pagination, FilterComponent } from "./index";
+import { CapsuleCard, Pagination } from "./index";
+import { Select, Option } from "@material-tailwind/react";
+import "../styles/styles.css";
 
 function CapsuleContainer({ capsules }) {
-  const [selectedFilters, setSelectedFilters] = useState({
-    status: "",
-    originalLaunch: "",
-    type: "",
-  });
-
+  const [status, setStatus] = useState("");
+  const [type, setType] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const capsulesPerPage = 10;
 
-  const handleFilterChange = (filterName, value) => {
-    setSelectedFilters({
-      ...selectedFilters,
-      [filterName]: value,
-    });
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
+  const handleStatusChange = (e) => {
+    setStatus(String(e));
+  };
+
+  const handleTypeChange = (e) => {
+    // console.log("Type selected:", e.target.value);
+    setType(String(e));
   };
 
   const filteredCapsules = capsules.filter((capsule) => {
-    const { status, originalLaunch, type } = selectedFilters;
+    const matchesStatus = !status || capsule.status === status;
+    const matchesType = !type || capsule.type === type;
 
-    return (
-      (!status || capsule.status === status) &&
-      (!originalLaunch || capsule.originalLaunch === originalLaunch) &&
-      (!type || capsule.type === type)
-    );
+    return matchesStatus && matchesType;
   });
 
   const totalCapsules = filteredCapsules.length;
@@ -37,12 +38,7 @@ function CapsuleContainer({ capsules }) {
     indexOfLastCapsule
   );
 
-  const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
-
   const uniqueStatusSet = new Set();
-  const uniqueYearSet = new Set();
   const uniqueTypeSet = new Set();
 
   capsules.forEach((item) => {
@@ -50,30 +46,57 @@ function CapsuleContainer({ capsules }) {
   });
 
   capsules.forEach((item) => {
-    uniqueYearSet.add(item.original_launch);
-  });
-
-  capsules.forEach((item) => {
     uniqueTypeSet.add(item.type);
   });
 
   const uniqueStatusArray = Array.from(uniqueStatusSet);
-  const uniqueYearArray = Array.from(uniqueYearSet);
   const uniqueTypeArray = Array.from(uniqueTypeSet);
 
   return (
     <div className="flex flex-col">
-      <div className="flex m-auto p-8">
-        <FilterComponent
-          uniqueStatusArray={uniqueStatusArray}
-          uniqueYearArray={uniqueYearArray}
-          uniqueTypeArray={uniqueTypeArray}
-          onFilterChange={handleFilterChange}
-        />
+      <div className="flex flex-wrap m-auto gap-4 p-8">
+        <div className="w-72">
+          <Select
+            label="Status"
+            name="status"
+            value={status}
+            onChange={handleStatusChange}
+            animate={{
+              mount: { y: 0 },
+              unmount: { y: 25 },
+            }}
+          >
+            <Option value="">All</Option>
+            {uniqueStatusArray.map((status) => (
+              <Option key={status} value={status}>
+                {status}
+              </Option>
+            ))}
+          </Select>
+        </div>
+        <div className="w-72">
+          <Select
+            label="Type"
+            name="type"
+            value={type}
+            onChange={handleTypeChange}
+            animate={{
+              mount: { y: 0 },
+              unmount: { y: 25 },
+            }}
+          >
+            <Option value="">All</Option>
+            {uniqueTypeArray.map((type) => (
+              <Option key={type} value={type}>
+                {type}
+              </Option>
+            ))}
+          </Select>
+        </div>
       </div>
-      <div className="flex w-65 flex-wrap justify-center pt-8">
+      <div className="flex flex-wrap justify-center pt-8">
         {currentCapsules.map((capsule) => (
-          <CapsuleCard capsule={capsule} key={capsule.flight_number} />
+          <CapsuleCard capsule={capsule} key={capsule.capsule_serial} />
         ))}
       </div>
       <div className="flex w-65 flex-wrap justify-center p-8">

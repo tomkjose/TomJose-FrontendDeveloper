@@ -6,6 +6,7 @@ import { Loading } from "../components/Loading";
 import { useAuth } from "../provider/AuthProvider";
 import { useNavigate } from "react-router-dom";
 import Banner from "../components/Banner";
+
 function Home() {
   const { capsules, loading } = useSelector((state) => state);
   const dispatch = useDispatch();
@@ -16,9 +17,13 @@ function Home() {
   }, [dispatch, user]);
 
   const navigate = useNavigate();
-  if (!user) {
-    navigate("/signup");
-  }
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/signin");
+    }
+  }, [user, navigate]);
+
   if (loading) {
     return (
       <div className="flex flex-wrap justify-center p-8">
@@ -26,6 +31,7 @@ function Home() {
       </div>
     );
   }
+
   return (
     <div>
       <Banner />

@@ -4,12 +4,15 @@ import {
   Dialog,
   DialogHeader,
   DialogBody,
-  DialogFooter,
   Typography,
 } from "@material-tailwind/react";
+import PropTypes from "prop-types";
+
+Typography.propTypes = {
+  someProp: PropTypes.string,
+};
 
 export function CapsulePopup({ capsule }) {
-  console.log("capsule", capsule);
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => setOpen(!open);
@@ -36,18 +39,17 @@ export function CapsulePopup({ capsule }) {
                 Details : {capsule.details}
               </Typography>
               <Typography variant="h5" color="blue-gray" className="mb-2">
-                status : {capsule.status}
+                Status : {capsule.status}
               </Typography>
               <Typography variant="h5" color="blue-gray" className="mb-2">
-                type : {capsule.type}
+                Type : {capsule.type}
               </Typography>
               <Typography variant="h5" color="blue-gray" className="mb-2">
-                type : {new Date(capsule.original_launch).getFullYear()}
+                Year : {new Date(capsule.original_launch).getFullYear()}
               </Typography>
             </DialogBody>
           </div>
         </div>
-        <DialogFooter></DialogFooter>
       </Dialog>
     </>
   );
