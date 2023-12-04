@@ -1,6 +1,6 @@
 import { Home, Landing, SignIn, SignUp, Fof } from "../pages/index";
 import { NavbarMenu } from "./NavbarMenu";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "../provider/AuthProvider";
 function App() {
   return (
